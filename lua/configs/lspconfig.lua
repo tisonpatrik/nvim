@@ -9,7 +9,7 @@ lspconfig.servers = {
     "lua_ls",
     -- "clangd",
     -- "gopls",
-    -- "pyright",
+    "ruff",
 }
 
 -- list of servers configured with default config.
@@ -80,6 +80,21 @@ lspconfig.lua_ls.setup({
                 },
                 maxPreload = 100000,
                 preloadFileSize = 10000,
+            },
+        },
+    },
+})
+
+lspconfig.ruff.setup({
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+    init_options = {
+        settings = {
+            configuration = "./pyproject.toml",
+            configurationPreference = "filesystemFirst",
+            lint = {
+                enable = true,
             },
         },
     },

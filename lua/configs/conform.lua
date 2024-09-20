@@ -4,7 +4,7 @@ local options = {
         -- c = { "clang-format" },
         -- cpp = { "clang-format" },
         -- go = { "gofumpt", "goimports-reviser", "golines" },
-        -- python = { "isort", "black" },
+        python = { "ruff" },
     },
 
     formatters = {
