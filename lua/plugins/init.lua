@@ -59,4 +59,29 @@ return {
             require("configs.mason-conform")
         end,
     },
+
+    {
+        "nvim-lua/plenary.nvim",
+        lazy = true,
+    },
+
+    {
+        "nvchad/ui",
+        config = function()
+            require("nvchad")
+        end,
+    },
+
+    {
+        "nvchad/base46",
+        lazy = true,
+        build = function()
+            require("base46").load_all_highlights()
+        end,
+    },
+
+    {
+        "nvzone/volt",
+        lazy = true,
+    },
 }
