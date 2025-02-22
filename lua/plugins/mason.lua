@@ -3,16 +3,15 @@ return {
 		"williamboman/mason.nvim",
 		config = function()
 			require("mason").setup({
-        automatic_installation = false,
-      })
+				automatic_installation = false,
+			})
 		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-        automatic_installation = false,
-				ensure_installed = { "clangd" },
+				ensure_installed = { "clangd", "lua_ls" },
 			})
 		end,
 	},
@@ -20,8 +19,8 @@ return {
 		"zapling/mason-conform.nvim",
 		config = function()
 			require("mason-conform").setup({
-      automatic_installation = false
-      })
+				automatic_installation = false,
+			})
 		end,
 	},
 	{
@@ -54,6 +53,7 @@ return {
 			end
 
 			require("mason-nvim-lint").setup({
+				ensure_installed = all_linters,
 				automatic_installation = false,
 			})
 		end,
