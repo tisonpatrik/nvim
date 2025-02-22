@@ -10,17 +10,14 @@ return {
 		lspconfig.servers = {
 			"lua_ls",
 			"clangd",
-			-- "gopls",
+			"gopls",
 			-- "hls",
 			-- "ols",
 			-- "pyright",
 		}
 
 		-- list of servers configured with default config.
-		local default_servers = {
-			-- "ols",
-			-- "pyright",
-		}
+		local default_servers = {}
 
 		-- lsps with default config
 		for _, lsp in ipairs(default_servers) do
@@ -28,6 +25,23 @@ return {
 				capabilities = capabilities,
 			})
 		end
+
+		lspconfig.gopls.setup({
+			capabilities = capabilities,
+			cmd = { "gopls" },
+			filetypes = { "go", "gomod", "gotmpl", "gowork" },
+			root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					completeUnimported = true,
+					usePlaceholders = true,
+					staticcheck = true,
+				},
+			},
+		})
 
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
