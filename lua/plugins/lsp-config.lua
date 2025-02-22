@@ -6,11 +6,28 @@ return {
 
 		local lspconfig = require("lspconfig")
 
-		lspconfig.clangd.setup({
-			capabilities = capabilities,
-		})
+		-- list of all servers configured.
+		lspconfig.servers = {
+			"lua_ls",
+			"clangd",
+			-- "gopls",
+			-- "hls",
+			-- "ols",
+			-- "pyright",
+		}
 
-		lspconfig.lua_ls.setup({})
+		-- list of servers configured with default config.
+		local default_servers = {
+			-- "ols",
+			-- "pyright",
+		}
+
+		-- lsps with default config
+		for _, lsp in ipairs(default_servers) do
+			lspconfig[lsp].setup({
+				capabilities = capabilities,
+			})
+		end
 
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
