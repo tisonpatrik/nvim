@@ -10,7 +10,7 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
-			local lspconfig = package.loaded["lspconfig"]
+			local lspconfig = require("lspconfig")
 			-- List of servers to ignore during install
 			local ignore_install = {}
 
