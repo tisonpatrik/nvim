@@ -4,6 +4,7 @@ return {
 		local lint = require("lint")
 		lint.linters_by_ft = {
 			lua = { "luacheck" },
+			elixir = { "credo" },
 		}
 		lint.linters.luacheck.args = {
 			"--globals",

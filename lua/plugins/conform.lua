@@ -3,11 +3,14 @@ return {
 	config = function()
 		local conform = require("conform")
 		conform.setup({
-			formatters_by_ft = {
-				lua = { "stylua" },
-				c = { "clang_format" },
-				go = { "gofumpt", "goimports-reviser", "golines" },
-			},
+		formatters_by_ft = {
+			lua = { "stylua" },
+			c = { "clang_format" },
+			go = { "gofumpt", "goimports-reviser", "golines" },
+			elixir = { "mix" },
+			heex = { "mix" },
+			eelixir = { "mix" },
+		},
 			formatters = {
 				["goimports-reviser"] = {
 					prepend_args = { "-rm-unused" },

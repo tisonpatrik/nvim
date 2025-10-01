@@ -14,7 +14,10 @@ return {
 			local servers = {
 				"clangd",
 				"gopls",
+				"delve",
 				"lua_ls",
+				"elixir-ls",
+				"nextls",
 				-- Add more servers as needed:
 				-- "hls",
 				-- "ols",
@@ -42,7 +45,7 @@ return {
 			local lint = package.loaded["lint"]
 
 			-- List of linters to ignore during install
-			local ignore_install = {}
+			local ignore_install = { "credo" }
 
 			-- Helper function to find if value is in table.
 			local function table_contains(tbl, value)
