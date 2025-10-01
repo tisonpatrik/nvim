@@ -2,34 +2,20 @@ return {
 	"neovim/nvim-lspconfig",
 	lazy = false,
 	config = function()
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-		local lspconfig = require("lspconfig")
+		-- Configure clangd with default settings
+		vim.lsp.config("clangd", {
+			capabilities = capabilities,
+		})
+		vim.lsp.enable("clangd")
 
-		-- list of all servers configured.
-		lspconfig.servers = {
-			"lua_ls",
-			"clangd",
-			"gopls",
-		}
-
-		-- list of servers configured with default config.
-		local default_servers = {
-			"clangd",
-		}
-
-		-- lsps with default config
-		for _, lsp in ipairs(default_servers) do
-			lspconfig[lsp].setup({
-				capabilities = capabilities,
-			})
-		end
-
-		lspconfig.gopls.setup({
+		-- Configure gopls with custom settings
+		vim.lsp.config("gopls", {
 			capabilities = capabilities,
 			cmd = { "gopls" },
 			filetypes = { "go", "gomod", "gotmpl", "gowork" },
-			root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+			root_dir = vim.fs.dirname(vim.fs.find({ "go.work", "go.mod", ".git" }, { upward = true })[1]),
 			settings = {
 				gopls = {
 					analyses = {
@@ -41,13 +27,20 @@ return {
 				},
 			},
 		})
+		vim.lsp.enable("gopls")
 
+		-- Configure lua_ls
+		vim.lsp.config("lua_ls", {
+			capabilities = capabilities,
+		})
+		vim.lsp.enable("lua_ls")
+
+		-- LSP keymaps
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
 		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.code_action, {})
-		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, {})
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 
 		vim.keymap.set("n", "<leader>gdv", function()
 			vim.cmd("rightbelow vsplit")
